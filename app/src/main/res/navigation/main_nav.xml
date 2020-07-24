@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav.xml"
+    app:startDestination="@id/documentListFragment">
+
+    <fragment
+        android:id="@+id/documentListFragment"
+        android:name="com.developer.ivan.coreapp.ui.main.fragments.DocumentListFragment"
+        android:label="fragment_document_list"
+        tools:layout="@layout/fragment_document_list" >
+        <action
+            android:id="@+id/action_documentListFragment_to_documentDetailFragment"
+            app:destination="@id/documentDetailFragment"
+            app:enterAnim="@anim/translate_in"
+            app:exitAnim="@anim/translate_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/documentDetailFragment"
+        android:name="com.developer.ivan.coreapp.ui.main.fragments.DocumentDetailFragment"
+        android:label="DocumentDetailFragment"
+        tools:layout="@layout/fragment_document_detail">
+        <argument
+            android:name="uiarticle"
+            app:argType="com.developer.ivan.coreapp.ui.main.UIArticle" />
+    </fragment>
+</navigation>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.developer.ivan.coreapp.ui.main.MainViewModel" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+        <variable
+            name="stateRender"
+            type="com.developer.ivan.coreapp.ui.main.MainViewModel.ArticlesListState.ShowItems" />
+
+        <variable
+            name="stateError"
+            type="com.developer.ivan.coreapp.ui.main.MainViewModel.ArticlesListState.Error" />
+
+        <variable
+            name="stateIdle"
+            type="com.developer.ivan.coreapp.ui.main.MainViewModel.ArticlesListState.Idle" />
+
+        <variable
+            name="stateNoResults"
+            type="com.developer.ivan.coreapp.ui.main.MainViewModel.ArticlesListState.NoResults" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.fragments.DocumentDetailFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/app_name" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="@dimen/largePadding"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvDocumentList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:data="@{viewModel.documentsStateListData}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/item_article" />
+
+            <TextView
+                android:id="@+id/txtIdle"
+                style="@style/TitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/idle"
+                android:visibility="@{viewModel.documentsStateListData==stateIdle ? view.VISIBLE : view.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/rcvDocumentList"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/txtEmptyList"
+                style="@style/TitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_list_items"
+                android:visibility="@{viewModel.documentsStateListData==stateNoResults ? view.VISIBLE : view.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/rcvDocumentList"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="@{viewModel.progressBar==true ? view.VISIBLE : view.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

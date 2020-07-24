@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+    compileSdkVersion 29
+    ndkVersion "21.0.6113669"
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.developer.ivan.coreapp"
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('security.properties').newDataInputStream())
+
+            buildConfigField "String", "API_KEY", properties.getProperty('API_KEY')
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('security.properties').newDataInputStream())
+
+            buildConfigField "String", "API_KEY", properties.getProperty('API_KEY')
+
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildFeatures{
+        dataBinding = true
+    }
+    
+
+
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':data')
+    implementation project(':domain')
+    implementation project(':usecases')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    def kotlinGradle = rootProject.ext.kotlin
+    def frameworkGradle = rootProject.ext.framework
+    def navigationGradle = rootProject.ext.navigation
+    def kaptCompilerGradle = rootProject.ext.kapt_compiler
+    def testGradle = rootProject.ext.test
+    def androidTestGradle = rootProject.ext.android_test
+
+
+    implementation kotlinGradle.values()
+    implementation frameworkGradle.values()
+    implementation navigationGradle.values()
+    kapt kaptCompilerGradle.values()
+    testImplementation testGradle.values()
+    androidTestImplementation androidTestGradle.values()
+
+
+
+}

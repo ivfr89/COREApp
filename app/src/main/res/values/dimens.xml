@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cornerRadius">4dp</dimen>
+    <dimen name="defaultMargin">8dp</dimen>
+    <dimen name="defaultPadding">8dp</dimen>
+    <dimen name="largePadding">16dp</dimen>
+    <dimen name="veryLargePadding">32dp</dimen>
+    <dimen name="defaultCorner">8dp</dimen>
+    <dimen name="defaultViewHeight">48dp</dimen>
+    <dimen name="largeMargin">16dp</dimen>
+    <dimen name="veryLargeMargin">32dp</dimen>
+</resources>

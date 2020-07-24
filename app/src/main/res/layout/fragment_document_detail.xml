@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.developer.ivan.coreapp.ui.main.MainViewModel" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            tools:context=".ui.main.fragments.DocumentDetailFragment">
+
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/motionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="104dp"
+                app:layoutDescription="@xml/fragment_document_detail_scene"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap|exitUntilCollapsed"
+                app:motionDebug="SHOW_PATH">
+
+
+                <ImageView
+                    android:id="@+id/background"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:scaleType="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:title="@{viewmodel.articleDetail.title}" />
+
+                <Button
+                    android:id="@+id/btnDownload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/defaultViewHeight"
+                    android:text="Download PDF"
+                    android:visibility="@{viewmodel.articleDetail.downloadUrl.empty ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+            </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/motionBody"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutDescription="@xml/fragment_document_detail_body_scene"
+                app:showPaths="true">
+
+
+                <View
+                    android:id="@+id/cardBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:background="@color/lightBlue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/veryLargeMargin"
+                        app:cardCornerRadius="@dimen/cardview_default_radius"
+                        app:cardElevation="6dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="@dimen/veryLargePadding"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.developer.ivan.coreapp.ui.custom.MaterialHTMLTextView
+                            android:id="@+id/txtContent"
+                            style="@android:style/TextAppearance.Material.Medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:justificationMode="inter_word"
+                            android:text="@{viewmodel.articleDetail.description}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </com.google.android.material.card.MaterialCardView>
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="35dp"
+                        android:layout_height="0dp"
+                        android:elevation="20dp"
+                        android:layout_marginTop="@dimen/defaultMargin"
+                        android:layout_marginBottom="@dimen/defaultMargin"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/spiral_background"
+                        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+            </androidx.constraintlayout.motion.widget.MotionLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/largePadding"
+            android:alpha="0.8"
+            android:visibility="@{(viewmodel.progressDownload == -1) ? view.GONE : view.VISIBLE}"
+            app:cardCornerRadius="@dimen/defaultCorner"
+            app:contentPadding="@dimen/defaultPadding"
+            app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtStatus"
+                    style="@android:style/TextAppearance.Material.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Downloading..."
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ProgressBar
+                    android:id="@+id/progressDownload"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="100"
+                    android:progress="@{viewmodel.progressDownload}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtStatus" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
